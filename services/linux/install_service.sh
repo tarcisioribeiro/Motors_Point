@@ -80,24 +80,24 @@ pip install -r requirements.txt
 sleep 1
 clear
 
-echo "#!/bin/bash" >> erp.sh
-echo "cd $FOLDER" >> erp.sh
-echo "source venv/bin/activate" >> erp.sh
-echo "streamlit run main.py --server.port 8501" >> erp.sh
-chmod u+x erp.sh
-sudo mv erp.sh /usr/bin/
+echo "#!/bin/bash" >> motors_point.sh
+echo "cd $FOLDER" >> motors_point.sh
+echo "source venv/bin/activate" >> motors_point.sh
+echo "streamlit run main.py --server.port 8510" >> motors_point.sh
+chmod u+x motors_point.sh
+sudo mv motors_point.sh /usr/bin/
 
-echo "[Unit]" >> erp.service
-echo "Description=ExpenseLit - Controle Financeiro" >> erp.service
-echo "[Service]" >> erp.service
-echo "ExecStart=/usr/bin/erp.sh" >> erp.service
-echo "[Install]" >> erp.service
-echo "WantedBy=multi-user.target" >> erp.service
-sudo mv erp.service /lib/systemd/system
+echo "[Unit]" >> motors_point.service
+echo "Description=Motors Point" >> motors_point.service
+echo "[Service]" >> motors_point.service
+echo "ExecStart=/usr/bin/motors_point.sh" >> motors_point.service
+echo "[Install]" >> motors_point.service
+echo "WantedBy=multi-user.target" >> motors_point.service
+sudo mv motors_point.service /lib/systemd/system
 
-sudo systemctl enable erp.service
+sudo systemctl enable motors_point.service
 sudo systemctl daemon-reload
-sudo systemctl start erp.service
+sudo systemctl start motors_point.service
 
 green "\nInstalação concluída."
 

@@ -108,15 +108,7 @@ class CreateUser:
                             new_user_values = (user_login,user_password,user_name,user_document,user_phone,user_email,user_sex)
                             query_executor.insert_query(insert_new_user_query,new_user_values,"Novo usuário cadastrado com sucesso!","Erro ao cadastrar novo usuário:")
 
-                            insert_new_creditor_query = """INSERT INTO credores (nome, documento, telefone) VALUES (%s, %s, %s)"""
-                            new_creditor_values = (user_name,user_document,user_phone)
-                            query_executor.insert_query(insert_new_creditor_query,new_creditor_values,"Novo credor cadastrado com sucesso!","Erro ao cadastrar novo credor:")
-
-                            insert_new_benefited_query = """INSERT INTO beneficiados (nome, documento, telefone) VALUES (%s, %s, %s)"""
-                            new_benefited_values = (user_name,user_document,user_phone)
-                            query_executor.insert_query(insert_new_benefited_query,new_benefited_values,"Novo beneficiado cadastrado com sucesso!","Erro ao cadastrar novo beneficiado:")
-
-                            log_query = '''INSERT INTO financas.logs_atividades (usuario_log, tipo_log, conteudo_log) VALUES ( %s, %s, %s);'''
+                            log_query = '''INSERT INTO logs_atividades (usuario_log, tipo_log, conteudo_log) VALUES ( %s, %s, %s);'''
                             log_values = (user_login, "Registro", "O usuário foi cadastrado no sistema.")
                             query_executor.insert_query(log_query, log_values, "Log gravado.", "Erro ao gravar log:")
 

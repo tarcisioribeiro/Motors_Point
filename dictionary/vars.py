@@ -32,13 +32,6 @@ fonts_dictionary = {
     "monospace": "/library/fonts/monospace/CourierPrime-Regular.ttf"
 }
 
-main_image = Image.open("{}/library/favicon.png".format(absolute_app_path))
-transfer_image: str = Image.open("{}/library/images/transfer.png".format(absolute_app_path))
-
-transfer_image_path = "{}/library/images/transfer.png".format(absolute_app_path)
-
-default_account_image = "default.png"
-
 today = datetime.now()
 today = today.date()
 actual_horary = datetime.now().strftime("%H:%M:%S")
@@ -73,11 +66,6 @@ special_caracters_dictionary = {
     "ú": "u",
     "ô": "o",
 }
-
-expense_categories: list = ["Selecione uma opção","Casa","Lazer","Eletroeletrônicos","Serviços","Entretenimento","Presente","Restaurante","Saúde","Supermercado","Transporte","Vestuário"]
-revenue_categories: list = ["Selecione uma opção","Ajuste","Depósito","Prêmio","Salário","Vale","Rendimentos"]
-transfer_categories: list = ["Selecione uma opção", "DOC", "TED", "Pix"]
-accounts_type = ["Conta Corrente","Conta Salário","Fundo de Garantia","Vale Alimentação"]
 
 to_remove_list: list = ["'", ")", "(", ",", "Decimal", '"', "[", "]", "datetime.date"]
 
