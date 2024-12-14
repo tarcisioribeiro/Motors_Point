@@ -57,7 +57,7 @@ while true; do
         sleep 5
         sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password';"
         cd documentation/
-        mysql -u root -p"$password" < implantation_financas.sql
+        mysql -u root -p"$password" < implantation_erp.sql
         break
     else
         red "\nAs senhas não coincidem. Tente novamente."
@@ -80,24 +80,24 @@ pip install -r requirements.txt
 sleep 1
 clear
 
-echo "#!/bin/bash" >> expenselit.sh
-echo "cd $FOLDER" >> expenselit.sh
-echo "source venv/bin/activate" >> expenselit.sh
-echo "streamlit run main.py --server.port 8501" >> expenselit.sh
-chmod u+x expenselit.sh
-sudo mv expenselit.sh /usr/bin/
+echo "#!/bin/bash" >> erp.sh
+echo "cd $FOLDER" >> erp.sh
+echo "source venv/bin/activate" >> erp.sh
+echo "streamlit run main.py --server.port 8501" >> erp.sh
+chmod u+x erp.sh
+sudo mv erp.sh /usr/bin/
 
-echo "[Unit]" >> expenselit.service
-echo "Description=ExpenseLit - Controle Financeiro" >> expenselit.service
-echo "[Service]" >> expenselit.service
-echo "ExecStart=/usr/bin/expenselit.sh" >> expenselit.service
-echo "[Install]" >> expenselit.service
-echo "WantedBy=multi-user.target" >> expenselit.service
-sudo mv expenselit.service /lib/systemd/system
+echo "[Unit]" >> erp.service
+echo "Description=ExpenseLit - Controle Financeiro" >> erp.service
+echo "[Service]" >> erp.service
+echo "ExecStart=/usr/bin/erp.sh" >> erp.service
+echo "[Install]" >> erp.service
+echo "WantedBy=multi-user.target" >> erp.service
+sudo mv erp.service /lib/systemd/system
 
-sudo systemctl enable expenselit.service
+sudo systemctl enable erp.service
 sudo systemctl daemon-reload
-sudo systemctl start expenselit.service
+sudo systemctl start erp.service
 
 green "\nInstalação concluída."
 

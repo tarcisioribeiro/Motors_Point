@@ -32,8 +32,8 @@ while true; do
         sleep 1
         blue "\nDesativando o serviço da aplicação..."
         sleep 2
-        sudo systemctl stop expenselit.service
-        sudo systemctl disable expenselit.service
+        sudo systemctl stop erp.service
+        sudo systemctl disable erp.service
         break
     else
         red "\nSenha de root incorreta. Saindo..."
