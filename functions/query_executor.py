@@ -17,13 +17,8 @@ class QueryExecutor:
                 cursor.close()
                 st.toast(":white_check_mark: {}".format(success_message))
             except mysql.connector.Error as error:
-                if error.errno == 1062:
-                    st.error("Já existe um registro no banco de dados com estas informações.")
-                elif error.errno == 1054:
-                    st.error("Há algum erro na consulta que está sendo realizada: {}".format(query))
-                else:
-                    st.toast(":warning: {} {}".format(error_message, error))
-                    st.error(error)
+                st.toast(":warning: {} {}".format(error_message, error))
+                st.error(error)
                 
             finally:
                 if connection.is_connected():

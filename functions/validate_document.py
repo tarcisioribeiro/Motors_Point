@@ -1,4 +1,5 @@
 import streamlit as st
+import re
 
 
 class Documents:
@@ -27,40 +28,59 @@ class Documents:
 
             return True
         
-        def validate_owner_document(owner_document: str):
+        def validate_cpf(cpf: str):
+            st.info(body="Validando CPF...")
+            
+            if cpf == cpf[0] * len(cpf):
+                st.error(body="CPF inválido: todos os números são iguais.")
+                return False
+            
+            first_sum = sum(int(cpf[i]) * (10 - i) for i in range(9))
+            first_digit = (first_sum * 10 % 11) % 10
 
-            if len(owner_document) != 11:
-                st.error(body="O documento pessoal não tem menos e nem mais que 11 caracteres.")
+            second_sum = sum(int(cpf[i]) * (11 - i) for i in range(10))
+            second_digit = (second_sum * 10 % 11) % 10
+
+            if int(cpf[9]) == first_digit and int(cpf[10]) == second_digit:
+                return True
             else:
-                st.info(body="Validando documento...")
-                owner_document_list = []
-                for i in range(0, len(owner_document)):
-                    owner_document_list.append(owner_document[i])
+                st.error(body="CPF inválido.")
+                return False
 
-                first_counter = 10
-                first_sum_value = 0
+        def validate_cnpj(cnpj: str):
+            st.info(body="Validando CNPJ...")
+            
+            if cnpj == cnpj[0] * len(cnpj):
+                st.error(body="CNPJ inválido: todos os números são iguais.")
+                return False
 
-                for i in range(0, 9):
-                    first_sum_value += int(owner_document_list[i]) * first_counter
-                    first_counter = first_counter - 1
+            weights_first = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+            weights_second = [6] + weights_first
 
-                first_division_rest = (first_sum_value * 10) % 11
+            first_sum = sum(int(cnpj[i]) * weights_first[i] for i in range(12))
+            first_digit = (first_sum % 11)
+            first_digit = 0 if first_digit < 2 else 11 - first_digit
 
-                second_counter = 11
-                second_sum_value = 0
+            second_sum = sum(int(cnpj[i]) * weights_second[i] for i in range(13))
+            second_digit = (second_sum % 11)
+            second_digit = 0 if second_digit < 2 else 11 - second_digit
 
-                for i in range(0, 9):
-                    second_sum_value += int(owner_document_list[i]) * second_counter
-                    second_counter = second_counter - 1
+            if int(cnpj[12]) == first_digit and int(cnpj[13]) == second_digit:
+                return True
+            else:
+                st.error(body="CNPJ inválido.")
+                return False
 
-                second_sum_value += first_division_rest * second_counter
-
-                second_division_rest = (second_sum_value * 10) % 11
-                
-                if first_division_rest == int(owner_document_list[9]) and second_division_rest == int(owner_document_list[10]):
-                    return True
-                else:
-                    return False
+        def validate_owner_document(owner_document: str):
+            owner_document = re.sub(r"\D", "", owner_document)
+            
+            if len(owner_document) == 11:
+                return validate_cpf(owner_document)
+            elif len(owner_document) == 14:
+                return validate_cnpj(owner_document)
+            else:
+                st.error(body="O documento deve conter 11 caracteres (CPF) ou 14 caracteres (CNPJ), desconsiderando pontuações.")
+                return False
 
         self.validate_owner_document = validate_owner_document
         self.validate_credit_card = validate_credit_card

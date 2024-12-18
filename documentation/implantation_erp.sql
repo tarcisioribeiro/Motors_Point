@@ -24,6 +24,30 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `erp` /*!40100 DEFAULT CHARACTER SET ut
 USE `erp`;
 
 --
+-- Table structure for table `anos`
+--
+
+DROP TABLE IF EXISTS `anos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `anos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ano` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `anos`
+--
+
+LOCK TABLES `anos` WRITE;
+/*!40000 ALTER TABLE `anos` DISABLE KEYS */;
+INSERT INTO `anos` VALUES (1,2020),(2,2021),(3,2022),(4,2023),(5,2024),(6,2025),(7,2026),(8,2027),(9,2028);
+/*!40000 ALTER TABLE `anos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `carros`
 --
 
@@ -34,6 +58,7 @@ CREATE TABLE `carros` (
   `id` int NOT NULL AUTO_INCREMENT,
   `cliente_id` int DEFAULT NULL,
   `placa` varchar(10) DEFAULT NULL,
+  `marca` varchar(100) DEFAULT NULL,
   `modelo` varchar(100) DEFAULT NULL,
   `ano` int DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -69,6 +94,15 @@ CREATE TABLE `clientes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `clientes`
+--
+
+LOCK TABLES `clientes` WRITE;
+/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `logs_atividades`
 --
 
@@ -85,7 +119,7 @@ CREATE TABLE `logs_atividades` (
   PRIMARY KEY (`id_log`),
   KEY `fk_logs_atividades_usuarios` (`usuario_log`),
   CONSTRAINT `fk_logs_atividades_usuarios` FOREIGN KEY (`usuario_log`) REFERENCES `usuarios` (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +128,34 @@ CREATE TABLE `logs_atividades` (
 
 LOCK TABLES `logs_atividades` WRITE;
 /*!40000 ALTER TABLE `logs_atividades` DISABLE KEYS */;
+INSERT INTO `logs_atividades` VALUES (1,'2024-12-15','09:30:34','admin','Registro','O usuário foi cadastrado no sistema.'),(2,'2024-12-15','09:30:47','admin','Acesso','O usuário acessou o sistema.');
 /*!40000 ALTER TABLE `logs_atividades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `meses`
+--
+
+DROP TABLE IF EXISTS `meses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `meses` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `numero_mes` tinyint NOT NULL,
+  `nome_mes` varchar(20) NOT NULL,
+  `abreviacao` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `meses`
+--
+
+LOCK TABLES `meses` WRITE;
+/*!40000 ALTER TABLE `meses` DISABLE KEYS */;
+INSERT INTO `meses` VALUES (1,1,'Janeiro','Jan'),(2,2,'Fevereiro','Fev'),(3,3,'Março','Mar'),(4,4,'Abril','Abr'),(5,5,'Maio','Mai'),(6,6,'Junho','Jun'),(7,7,'Julho','Jul'),(8,8,'Agosto','Ago'),(9,9,'Setembro','Set'),(10,10,'Outubro','Out'),(11,11,'Novembro','Nov'),(12,12,'Dezembro','Dez');
+/*!40000 ALTER TABLE `meses` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -273,7 +334,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `chave_usuario` (`login`,`senha`),
   UNIQUE KEY `unq_usuarios_nome` (`nome`,`cpf`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -282,6 +343,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'admin','123','John Doe',13184797627,'35999490239','tarcisio.ribeiro.1840@gmail.com','M');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -294,4 +356,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-14 15:07:45
+-- Dump completed on 2024-12-15 17:23:57
