@@ -121,4 +121,14 @@ class Vehicles:
                                     if year == "":
                                         st.warning(body="O ano do veículo não foi informado.")
 
+                    elif confirm_vehicle_data == False and register_vehicle:
+
+                        with col2:
+                            with st.spinner(text="Aguarde..."):
+                                sleep(2.5)
+
+                            st.subheader(body=":white_check_mark: Validação de Dados")
+                            with st.expander(label="Aviso", expanded=True):
+                                st.warning(body="Revise e confirme os dados antes de prosseguir.")
+
         self.main_menu = main_menu
