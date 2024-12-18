@@ -160,11 +160,11 @@ DROP TABLE IF EXISTS `ordem_servico_pecas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ordem_servico_pecas` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id_os_peca` int NOT NULL AUTO_INCREMENT,
   `ordem_servico_id` int DEFAULT NULL,
   `peca_id` int DEFAULT NULL,
   `quantidade` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id_os_peca`),
   KEY `ordem_servico_id` (`ordem_servico_id`),
   KEY `peca_id` (`peca_id`),
   CONSTRAINT `ordem_servico_pecas_ibfk_1` FOREIGN KEY (`ordem_servico_id`) REFERENCES `ordens_servico` (`id_ordem_servico`),
@@ -189,10 +189,10 @@ DROP TABLE IF EXISTS `ordem_servico_servicos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ordem_servico_servicos` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id_os_servico` int NOT NULL AUTO_INCREMENT,
   `ordem_servico_id` int DEFAULT NULL,
   `servico_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id_os_servico`),
   KEY `ordem_servico_id` (`ordem_servico_id`),
   KEY `servico_id` (`servico_id`),
   CONSTRAINT `ordem_servico_servicos_ibfk_1` FOREIGN KEY (`ordem_servico_id`) REFERENCES `ordens_servico` (`id_ordem_servico`),
